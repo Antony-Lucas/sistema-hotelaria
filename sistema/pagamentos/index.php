@@ -116,6 +116,14 @@ $sobrenome = $_REQUEST["sobrenome"];
             <br>
             Código do pagamento: <?php echo $_GET["id"]; ?>
         </div>
+        <div class="form-signin" id="form-erro" style="display:none;text-align: center;">
+            <h1 class="h3 mb-3 font-weight-normal">Ocorreu um erro ao processar seu pagamento</h1>
+            <img class="mb-4"  src="<?=$url_sistema;?>pagamentos/assets/check_error.png" alt="" width="120" height="120">
+            <br>
+            <h5><?=$MSG_APOS_PAGAMENTO;?></h5>
+            <br>
+            Código do pagamento: <?php echo $_GET["id"]; ?>
+        </div>
     </div>
     <style>
         body{font-family:arial}
@@ -202,9 +210,7 @@ $sobrenome = $_REQUEST["sobrenome"];
                             })
                             .then((response) => {
                                 console.log("Resposta completa do servidor:", response);
-                                /*if(response.status==true){
-                                    window.location.href = "<?=$url_sistema;?>pagamentos/index.php?id="+response.id+'&id_reserva='+id_reserva;
-                                }*/
+                                
                                 if(response.status!=true){
                                     alert(response.message);
                                 }
@@ -241,7 +247,13 @@ $sobrenome = $_REQUEST["sobrenome"];
                                                 externalReference: formData.external_reference
                                             }),
                                         })
-                                        .then((finalResponse) => finalResponse.json())
+                                        .then((finalResponse) => {
+                                            if(response.status==true){
+                                                window.location.href = "<?=$url_sistema;?>pagamentos/index.php?id="+response.id+'&id_reserva='+id_reserva;
+                                            }
+
+                                            return finalResponse.json()
+                                        } )
                                         .catch((error) => {
                                             console.error("Erro ao chamar o endpoint pagamento_pendente:", error);
                                         });
@@ -318,8 +330,70 @@ function check(id, id_reserva) {
     };
     $.ajax(settings).done(function(response) {
         console.log(response.status)
+        var id_reserva = '<?=$id_reserva;?>';
+        var telefone_hospede = '<?=$telefone_hospede;?>'
+        var nome_cliente = '<?=$nome_cliente;?>';
+        var cpf_cliente = '<?=$cpf_cliente;?>';
+        var quarto = '<?=$quarto;?>';
+        var tipo_quarto = '<?=$nome_tipo;?>';
+        var funcionario = '<?=$funcionario;?>';
+        var check_in = '<?=$check_in;?>';
+        var check_out = '<?=$check_out;?>';
+        var valor = '<?=$valor;?>';
+        var hospedes = '<?=$hospedes;?>';
+        var valor_diaria = '<?=$valor_diaria;?>';
+        var data = '<?=$data;?>';
+        var desconto = '<?=$desconto;?>';
+        var forma_pgto = '<?=$forma_pgto;?>';
+        var ref_pgto = '<?=$ref_pgto;?>';
         try {
             if (response.status == "pago") {
+                fetch("<?=$url_sistema;?>pagamentos/out_webhooks.php?tipo=pagamento_efetuado")
+                    .then((webhookResponse) => {
+                        console.log("Resposta bruta do servidor:", webhookResponse);
+                        return webhookResponse.json();
+                    })
+                    .then((webhookData) => {
+                        if (webhookData.endpoint) {
+                        fetch(webhookData.endpoint, {
+                            method: "POST",
+                            headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            statusPagamento: response.status,
+                            tipoPagamento: response.tipo,
+                            paymentId: response.id,
+                            idReserva: id_reserva,
+                            nomeCliente: nome_cliente,
+                            cpfCliente: cpf_cliente,
+                            tipoQuarto: tipo_quarto,
+                            numeroQuarto: quarto,
+                            valorDiaria: valor_diaria,
+                            checkIn: check_in,
+                            checkOut: check_out,
+                            valorTotal: valor,
+                            hospedes: hospedes,
+                            telefoneHospede: telefone_hospede,
+                        }),
+                    })
+                    .then((finalResponse) => {
+                        if(response.status==true){
+                            window.location.href = "<?=$url_sistema;?>pagamentos/index.php?id="+response.id+'&id_reserva='+id_reserva;
+                        }
+
+                        return finalResponse.json()
+                    } )
+                    .catch((error) => {
+                        console.error("Erro ao chamar o endpoint pagamento_pendente:", error);
+                    });
+                    } else {
+                        console.error("Endpoint não encontrado para pagamento_pendente");
+                    }})
+                    .catch((error) => {
+                        console.error("Erro ao buscar endpoint para pagamento_pendente:", error);
+                    });         
+                      
                 $("#statusScreenBrick_container").slideUp("fast");
                 $("#form-pago").slideDown("fast");
                 if (redi.trim() == "Sim") {
@@ -328,7 +402,55 @@ function check(id, id_reserva) {
                         $("#btn_form").click();
                     }, 6000);
                 }
-            } else {
+            } 
+            if (response.status == "rejected") {
+                fetch("<?=$url_sistema;?>pagamentos/out_webhooks.php?tipo=pagamento_falha")
+                    .then((webhookResponse) => {
+                        console.log("Resposta bruta do servidor:", webhookResponse);
+                        return webhookResponse.json();
+                    })
+                    .then((webhookData) => {
+                        if (webhookData.endpoint) {
+                        fetch(webhookData.endpoint, {
+                            method: "POST",
+                            headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            statusPagamento: response.status,
+                            tipoPagamento: response.tipo,
+                            paymentId: response.id,
+                            idReserva: id_reserva,
+                            nomeCliente: nome_cliente,
+                            cpfCliente: cpf_cliente,
+                            tipoQuarto: tipo_quarto,
+                            numeroQuarto: quarto,
+                            valorDiaria: valor_diaria,
+                            checkIn: check_in,
+                            checkOut: check_out,
+                            valorTotal: valor,
+                            hospedes: hospedes,
+                            telefoneHospede: telefone_hospede,
+                        }),
+                    })
+                    .then((finalResponse) => {
+                        if(response.status==true){
+                            window.location.href = "<?=$url_sistema;?>pagamentos/index.php?id="+response.id+'&id_reserva='+id_reserva;
+                        }
+
+                        return finalResponse.json()
+                    } )
+                    .catch((error) => {
+                        console.error("Erro ao chamar o endpoint pagamento_pendente:", error);
+                    });
+                    } else {
+                        console.error("Endpoint não encontrado para pagamento_pendente");
+                    }})
+                    .catch((error) => {
+                        console.error("Erro ao buscar endpoint para pagamento_pendente:", error);
+                    });         
+            }
+            else {
                 setTimeout(() => {
                     check(id)
                 }, 3000);
