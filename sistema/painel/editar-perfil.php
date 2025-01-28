@@ -8,7 +8,7 @@ $telefone = $_POST['telefone'];
 $conf_senha = $_POST['conf_senha'];
 $endereco = $_POST['endereco'];
 $senha = $_POST['senha'];
-$senha_crip = md5($senha);
+$senha_crip = password_hash($senha, PASSWORD_DEFAULT);
 $id = $_POST['id_usuario'];
 
 if($conf_senha != $senha){
@@ -83,7 +83,7 @@ $query->bindValue(":nome", "$nome");
 $query->bindValue(":email", "$email");
 $query->bindValue(":telefone", "$telefone");
 $query->bindValue(":endereco", "$endereco");
-$query->bindValue(":senha", "$senha");
+$query->bindValue(":senha", "");
 $query->execute();
 
 echo 'Editado com Sucesso';

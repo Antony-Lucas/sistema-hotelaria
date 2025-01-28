@@ -1,79 +1,87 @@
 <?php 
+@session_start();
+$_SESSION['pagina'] = 'sobre';
 require_once("cabecalho.php");
- ?>
+ ?>  
      
- <section class="section section-md bg-secondary-4 text-center text-sm-left">
-        <div class="shell">
-          <div class="range range-50 range-md-justify range-sm-middle">
-            <div class="cell-sm-6 wow fadeInUp" data-wow-delay=".1s">
-              <div class="box-outline box-outline__mod-1">
-                <figure><img src="sistema/img/<?php echo $foto_sobre_pagina ?>" alt="" width="546" height="516"/>
-                </figure>
-              </div>
-            </div>
-            <div class="cell-sm-6 cell-md-5 wow fadeInUp" data-wow-delay=".2s">
-              <h3><?php echo $nome_sistema ?></h3>
-              <p style="color:#707070"><?php echo $descricao_sobre1 ?></p>
-              <p style="color:#707070"><?php echo $descricao_sobre2 ?></p>
-              <p style="color:#707070"><?php echo $descricao_sobre3 ?></p>
-              
-            </div>
-          </div>
-        </div>
-      </section>  
+       
 
+          <!--================ About History Area  =================-->
+        <section class="about_history_area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d_flex align-items-center">
+                        <div class="about_content ">
+                            <h2 class="title title_color"><?php if($titulo_sobre != ""){ ?><h2><?php echo $titulo_sobre ?></h2><?php } ?></h2>
+                            <p>  
+                                <?php if($descricao_sobre1 != ""){ ?><?php echo $descricao_sobre1 ?><?php } ?>
+                                
+                                 <?php if($descricao_sobre2 != ""){ ?><br><br><?php echo $descricao_sobre2 ?><?php } ?>
 
-<?php 
-               $query = $pdo->query("SELECT * from categorias_quartos where ativo = 'Sim' order by id asc");
+                                 <?php if($descricao_sobre3 != ""){ ?><br><br><?php echo $descricao_sobre3 ?><?php } ?>
+                            </p>
+
+                            
+                            
+
+                               
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        
+                        <img class="img-fluid" src="sistema/img/<?php echo $foto_sobre_pagina ?>" alt="img">
+                  
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================ About History Area  =================-->
+        
+        
+
+        <?php 
+               $query = $pdo->query("SELECT * from especificacoes order by id asc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){
              ?>
-      <section class="section section-md">
-        <div class="shell">
-          <h3>Nossos Quartos</h3>
-         
-          <div class="range range-30" data-lightgallery="group">
+        <!--================ Facilities Area  =================-->
+        <section class="facilities_area section_gap">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">  
+            </div>
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_w">Serviços e Lazer</h2>
+                    <p>Desfrute de todos os nosso serviços e áreas de lazer</p>
+                </div>
+                <div class="row mb_30">
 
-            <?php 
-              for($i=0; $i<$linhas; $i++){
+                     <?php 
+             for($i=0; $i<$linhas; $i++){
   $id = $res[$i]['id'];
   $nome = $res[$i]['nome'];
-  $nome_url = $res[$i]['nome_url'];
+  $foto = $res[$i]['foto'];
   $descricao = $res[$i]['descricao'];
-  $especificacoes = $res[$i]['especificacoes'];
-  $valor = $res[$i]['valor'];
-  $foto = $res[$i]['foto']; 
-  $ativo = $res[$i]['ativo'];
-  
-  $valorF = number_format($valor, 2, ',', '.');  
-  $descricaoF = mb_strimwidth($descricao, 0, 100, "...");
+         ?>
 
-  $especificacoesF = str_replace('**', ', ', $especificacoes);
+                    <div class="col-lg-4 col-md-6">
+                        <div class="facilities_item">
+                            <h4 class="sec_h4"><i class="<?php echo $foto ?>"></i><?php echo $nome ?></h4>
+                            <p><?php echo $descricao ?></p>
+                        </div>
+                    </div>
 
-  if($linhas < 5){
-    $col = 'cell-md-6';
-    $heig = '320px';
-  }else{
-    $col = 'cell-md-4';
-    $heig = '276px';
-  }
-             ?>
-            <div class="cell-sm-6 <?php echo $col ?>"><a class="thumbnail-classic" href="especificacoes.php?nome=<?php echo $nome_url ?>" target="_blank">
-                <figure><img src="sistema/painel/images/quartos/<?php echo $foto ?>" alt="" style="width:370px; height:<?php echo $heig ?>"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title"><?php echo $nome ?></p>
-                  <p class="caption-text"><?php echo $especificacoesF ?></p>
-                </div></a>
+                <?php } ?>
+                  
+                </div>
             </div>
-          <?php } ?>
-           
-          </div>
-        </div>
-      </section>    
-  <?php } ?> 
-
-<?php require_once("rodape.php") ?>
-
+        </section>
+    <?php } ?>
+        <!--================ Facilities Area  =================-->
         
+     <br>
+
+     <iframe src="<?php echo $mapa ?>" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+<?php require_once("rodape.php") ?>       

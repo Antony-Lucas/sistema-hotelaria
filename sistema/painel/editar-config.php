@@ -17,6 +17,10 @@ $marca_dagua = $_POST['marca_dagua'];
 $info_reserva = $_POST['info_reserva'];
 $info_checkin = $_POST['info_checkin'];
 $prazo_devolucao = $_POST['prazo_devolucao'];
+$ocultar_acessos = $_POST['ocultar_acessos'];
+$tipo_api = $_POST['tipo_api'];
+$marketing_whats = $_POST['marketing_whats'];
+$tempo_reserva = $_POST['tempo_reserva'];
 
 //foto logo
 $caminho = '../img/logo.png';
@@ -66,7 +70,7 @@ if(@$_FILES['foto-icone']['name'] != ""){
 }
 
 
-$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, email = :email, telefone = :telefone, endereco = :endereco, instagram = :instagram, api_whatsapp = :api_whatsapp, token = :token, instancia = :instancia, no_show = :no_show, taxa_cancelamento = :taxa_cancelamento, dias_cancelamento = :dias_cancelamento, marca_dagua = '$marca_dagua', info_reserva = :info_reserva, info_checkin = :info_checkin, prazo_devolucao = '$prazo_devolucao' where id = 1");
+$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, email = :email, telefone = :telefone, endereco = :endereco, instagram = :instagram, api_whatsapp = :api_whatsapp, token = :token, instancia = :instancia, no_show = :no_show, taxa_cancelamento = :taxa_cancelamento, dias_cancelamento = :dias_cancelamento, marca_dagua = '$marca_dagua', info_reserva = :info_reserva, info_checkin = :info_checkin, prazo_devolucao = '$prazo_devolucao', ocultar_acessos = '$ocultar_acessos', tipo_api = '$tipo_api', marketing_whats = '$marketing_whats', tempo_reserva = '$tempo_reserva' where id = 1");
 
 $query->bindValue(":nome", "$nome");
 $query->bindValue(":email", "$email");
@@ -81,6 +85,7 @@ $query->bindValue(":dias_cancelamento", "$dias_cancelamento");
 $query->bindValue(":taxa_cancelamento", "$taxa_cancelamento");
 $query->bindValue(":info_reserva", "$info_reserva");
 $query->bindValue(":info_checkin", "$info_checkin");
+
 $query->execute();
 
 echo 'Editado com Sucesso';

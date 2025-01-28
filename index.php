@@ -1,35 +1,23 @@
 <?php 
+@session_start();
+$_SESSION['pagina'] = 'home';
 require_once("cabecalho.php");
- ?>
-      <section class="section">
-        <div class="shell-wide">
-          <div class="range range-30 range-xs-center">
-            <div class="cell-lg-8 cell-xl-9">
+ ?>  
+ 
+        <!--================Banner Area =================-->
 
-              <?php 
-                $query = $pdo->query("SELECT * from banners_site where ativo = 'Sim' order by id asc");
+         <?php 
+                $query = $pdo->query("SELECT * from banners_site where ativo = 'Sim' order by id desc limit 1");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){
-               ?>
-              <!-- Classic slider-->
-              <section class="section">
 
-                <div class="mostrar-mobile">
-                  <img width="100%" src="sistema/img/<?php echo $foto_banner_mobile ?>">
-                </div>
-                <!-- Swiper -->
-                <div class="swiper-container swiper-slider swiper-style-2 ocultar-mobile" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="slide" data-direction="vertical">
-                  <div class="swiper-wrapper">
-
-                    <?php 
-                      for($i=0; $i<$linhas; $i++){
-  $id = $res[$i]['id'];
-  $titulo = $res[$i]['titulo'];
-  $descricao = $res[$i]['descricao'];
-  $subtitulo = $res[$i]['subtitulo'];
-  $link = $res[$i]['link'];
-  $foto = $res[$i]['foto']; 
+    $id = $res[0]['id'];
+  $titulo = $res[0]['titulo'];
+  $descricao = $res[0]['descricao'];
+  $subtitulo = $res[0]['subtitulo'];
+  $link = $res[0]['link'];
+  $foto = $res[0]['foto']; 
 
   $ocultar_link = '';
   if($link == ""){
@@ -40,166 +28,104 @@ if($linhas > 0){
   if($descricao == "" and $subtitulo == ""){
     $ocultar_textos = 'none';
   }
-                     ?>
-                    <div class="swiper-slide" data-slide-bg="sistema/painel/images/banners/<?php echo $foto ?>">
-                      <div class="swiper-slide-caption">
-                        <div class="shell text-sm-left">
-                          <h1 data-caption-animate="slideInDown" data-caption-delay="100"><?php echo $titulo ?></h1>
-                          <div class="slider-subtitle-group" style="display:<?php echo $ocultar_textos ?>">
-                            <div class="decoration-line" data-caption-animate="slideInDown" data-caption-delay="400"></div>
-                            <h4 data-caption-animate="slideInLeft" data-caption-delay="700"><?php echo $descricao ?></h4>
-                            <h3 data-caption-animate="slideInLeft" data-caption-delay="800"><?php echo $subtitulo ?></h3>
-                          </div>
-                          <a class="button button-effect-ujarak button-lg button-white-outline button-square" href="<?php echo $link ?>" data-caption-animate="slideInLeft" data-caption-delay="1150" style="display:<?php echo $ocultar_link ?>"><span>Veja Mais</span></a>
+?>
+
+        <section class="banner_area">
+            <div class="booking_table d_flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="background: url('sistema/painel/images/banners/<?php echo $foto ?>') no-repeat scroll center 0/cover;
+  opacity: 0.50;"></div>
+				<div class="container">
+					<div class="banner_content text-center" style="display:<?php echo $ocultar_textos ?>">
+						<h6><?php echo $subtitulo ?></h6>
+						<h2><?php echo $titulo ?></h2>
+						<p><?php echo $descricao ?></p>
+						<a style="display:<?php echo $ocultar_link ?>" href="<?php echo $link ?>" class="btn theme_btn button_hover">Veja Mais</a>
+					</div>
+				</div>
+            </div>
+            <div class="hotel_booking_area position">
+                <div class="container">
+                    <div class="hotel_booking_table">
+                        <div class="col-md-3">
+                            <h2>Faça<br> Sua Reserva</h2>
                         </div>
-                      </div>
+                        <div class="col-md-9">
+                            <div class="boking_table">
+                                 <form method="post" action="checkout.php" target="_blank">
+                                <div class="row">
+                                   
+                                    <div class="col-md-4">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class='input-group date' >
+                                                    <input type='date' class="form-control" placeholder="Entrada" name="checkin" value="<?php echo date('Y-m-d') ?>" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class='input-group date' >
+                                                    <input type='date' class="form-control" placeholder="Saída" name="checkout" value="<?php echo date('Y-m-d') ?>" />
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="book_tabel_item">
+                                            <div class="input-group">
+                                                <select class="wide" required="" name="adultos">
+                                                    <option data-display="Adultos" value="1">Adultos</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                   
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <select class="wide" required="" name="criancas">
+                                                    <option data-display="Crianças">Crianças</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="book_tabel_item">
+                                            <div class="input-group">
+                                               
+                                            </div>
+                                            <button type="submit" class="book_now_btn button_hover" >Reservar</button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                  <?php } ?>
-
-                  </div>
-                  <div class="swiper-pagination"></div>
                 </div>
-              </section>
-            <?php } ?>
             </div>
-            <div class="cell-lg-4 cell-xl-3 reveal-lg-flex">
-              <div class="hotel-booking-form">
-                <h3>Reserve Já</h3>
-                <!-- RD Mailform-->
-                <form  method="post" id="form_reserva">
-                  <div class="range range-sm-bottom spacing-20">
-                    <div class="cell-lg-12 cell-md-4">
-                      <p class="text-uppercase">Seu Telefone</p>
-                      <div class="form-wrap">
-                        <input class="form-input" id="telefone" type="text" name="telefone" placeholder="(00) 00000-0000" required>
-                        
-                      </div>
-                    </div>
-                    <div class="cell-lg-12 cell-md-4 cell-sm-6">
-                      <p class="text-uppercase">Check-In</p>
-                      <div class="form-wrap">
-                       
-                        <input class="form-input" type="date" name="checkin" id="checkin" required>
-                      </div>
-                    </div>
-                    <div class="cell-lg-12 cell-md-4 cell-sm-6">
-                      <p class="text-uppercase">Check-Out</p>
-                      <div class="form-wrap">
-                       
-                        <input class="form-input" type="date" name="checkout" id="checkout" required>
-                      </div>
-                    </div>
-                    <div class="cell-lg-6 cell-md-4 cell-xs-6">
-                      <p class="text-uppercase">Adultos</p>
-                      <div class="form-wrap form-wrap-validation">
-                        <!--Select 2-->
-                        <select class="form-input select-filter" name="adultos">                          
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="cell-lg-6 cell-md-4 cell-xs-6">
-                      <p class="text-uppercase">Crianças</p>
-                      <div class="form-wrap form-wrap-validation">
-                        <!--Select 2-->
-                        <select class="form-input select-filter"  data-placeholder="0" name="criancas">
-                         
-                          <option value="0">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="cell-lg-12 cell-md-4">
-                      <button class="button button-steel-blue5 button-square button-block button-effect-ujarak" type="submit" ><span >Solicitar Reserva</span></button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- About us-->
-      <section class="section section-md bg-white text-center text-sm-left">
-        <div class="shell-wide">
-          <div class="range range-50 range-xs-center overflow-hidden">
-            <div class="cell-sm-10 cell-md-8 cell-lg-7 wow fadeInUp" data-wow-delay=".1s">
-             
-              <div class="post-video post-video-border">
-                <div class="post-video__image"><img src="sistema/img/<?php echo $foto_sobre_pagina ?>" alt="" width="1020" height="525"/>
-                </div>
-                 <?php if($foto_video_sobre == "Vídeo"){ ?>
-                <div class="post-video__body"><a class="link-control post-video__control" data-lightgallery="item" href="<?php echo $video_sobre_index ?>"></a></div>
-                <?php } ?>
-              </div>
-            
-            </div>
-            <div class="cell-sm-10 cell-md-8 cell-lg-5 reveal-flex wow fadeInUp" data-wow-delay=".3s" >
-              <div class="bg-primary section-wrap-content-var-1" style="background: #053582;">
-                <div class="section-wrap-content-var-1-inner">
-                  <?php if($titulo_sobre != ""){ ?><h2><?php echo $titulo_sobre ?></h2><?php } ?>
-                   <?php if($descricao_sobre1 != ""){ ?><p><?php echo $descricao_sobre1 ?></p><?php } ?>
-                  <div class="group">
-                   <?php if($descricao_sobre2 != ""){ ?><p><?php echo $descricao_sobre2 ?></p><?php } ?>
-                  </div><a class="button button-effect-ujarak button-lg button-secondary-outline button-square" href="sobre.php"><span>Veja Mais</span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-<?php 
-               $query = $pdo->query("SELECT * from especificacoes order by id asc");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$linhas = @count($res);
-if($linhas > 0){
-             ?>
-      <!--Indoor Pool-->
-       <div class="range range-30 range-middle" data-lightgallery="group" style="margin:5px; padding:5px; color:#707070;">
-
+        </section>
+     <?php } ?>
+        <!--================Banner Area =================-->
+        
+        <!--================ Accomodation Area  =================-->
         <?php 
-             for($i=0; $i<$linhas; $i++){
-  $id = $res[$i]['id'];
-  $nome = $res[$i]['nome'];
-  $foto = $res[$i]['foto'];
-         ?>
-          <div class="col-md-3 ">
-              <div class="divmobile" style="display: inline-block;">
-              <img width="60px" src="sistema/painel/images/especificacoes/<?php echo $foto ?>"> <span><?php echo $nome ?></span>
-              </div>
-          </div>
-         <?php } ?>
-
-        </div>
-      <?php } ?>
-
-
-
-
-
-<?php 
                $query = $pdo->query("SELECT * from categorias_quartos where ativo = 'Sim' order by id asc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){
              ?>
-      <section class="section section-md">
-        <div class="shell">
-          <h3>Nossos Quartos</h3>
-         
-          <div class="range range-30" data-lightgallery="group">
+        <section class="accomodation_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Quartos</h2>
+                    <p>Escolha uma de nossas categorias de quartos</p>
+                </div>
+                <div class="row mb_30">
 
-            <?php 
+                     <?php 
               for($i=0; $i<$linhas; $i++){
   $id = $res[$i]['id'];
   $nome = $res[$i]['nome'];
@@ -223,166 +149,202 @@ if($linhas > 0){
     $heig = '276px';
   }
              ?>
-            <div class="cell-sm-6 <?php echo $col ?>"><a class="thumbnail-classic" href="especificacoes.php?nome=<?php echo $nome_url ?>" target="_blank">
-                <figure><img src="sistema/painel/images/quartos/<?php echo $foto ?>" alt="" style="width:370px; height:<?php echo $heig ?>"/>
-                </figure>
-                <div class="caption">
-                  <p class="caption-title"><?php echo $nome ?></p>
-                  <p class="caption-text"><?php echo $especificacoesF ?></p>
-                </div></a>
-            </div>
-          <?php } ?>
-           
-          </div>
-        </div>
-      </section>    
-  <?php } ?>
-    
-     
 
-       <?php 
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <a style="cursor: pointer;" onclick="detalheQuarto(<?php echo $id ?>, '<?php echo $nome ?>', '<?php echo $descricao ?>')"><img src="sistema/painel/images/quartos/<?php echo $foto ?>" alt="" width="270" height=""></a>
+                               
+                            </div>
+                            <a style="cursor: pointer;" onclick="detalheQuarto(<?php echo $id ?>, '<?php echo $nome ?>', '<?php echo $descricao ?>')"><h4 class="sec_h4"><?php echo $nome ?></h4></a>
+                            <h6 style="color:#6f1205">R$ <?php echo $valorF ?><small>/Diária</small></h6>
+                            <div style="">
+                            <?php 
+                                 $query2 = $pdo->query("SELECT * from especificacoes_quartos where cat_quartos = '$id' order by id asc");
+$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+$linhas2 = @count($res2);
+if($linhas2 > 0){
+for($i2=0; $i2<$linhas2; $i2++){                             ?>
+                            <span style="font-size:12px; color:#616161"><i class="fa fa-check text-verde"></i><?php echo $res2[$i2]['texto'] ?></span><br>
+                        <?php } } ?>
+                        </div>
+                        </div>
+                    </div>
+
+                <?php } ?>
+                   
+               
+                
+                </div>
+            </div>
+        </section>
+    <?php } ?>
+        <!--================ Accomodation Area  =================-->
+        
+
+        <?php 
+               $query = $pdo->query("SELECT * from especificacoes order by id asc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$linhas = @count($res);
+if($linhas > 0){
+             ?>
+        <!--================ Facilities Area  =================-->
+        <section class="facilities_area section_gap">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">  
+            </div>
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_w">Serviços e Lazer</h2>
+                    <p>Desfrute de todos os nosso serviços e áreas de lazer</p>
+                </div>
+                <div class="row mb_30">
+
+                     <?php 
+             for($i=0; $i<$linhas; $i++){
+  $id = $res[$i]['id'];
+  $nome = $res[$i]['nome'];
+  $foto = $res[$i]['foto'];
+  $descricao = $res[$i]['descricao'];
+         ?>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="facilities_item">
+                            <h4 class="sec_h4"><i class="<?php echo $foto ?>"></i><?php echo $nome ?></h4>
+                            <p><?php echo $descricao ?></p>
+                        </div>
+                    </div>
+
+                <?php } ?>
+                  
+                </div>
+            </div>
+        </section>
+    <?php } ?>
+        <!--================ Facilities Area  =================-->
+        
+        <!--================ About History Area  =================-->
+        <section class="about_history_area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d_flex align-items-center">
+                        <div class="about_content ">
+                            <h2 class="title title_color"><?php if($titulo_sobre != ""){ ?><h2><?php echo $titulo_sobre ?></h2><?php } ?></h2>
+                            <p>  
+                                <?php if($descricao_sobre1 != ""){ ?><?php echo $descricao_sobre1 ?><?php } ?>
+                                
+                                 <?php if($descricao_sobre2 != ""){ ?><br><br><?php echo $descricao_sobre2 ?><?php } ?>
+
+                                 <?php if($descricao_sobre3 != ""){ ?><br><br><?php echo $descricao_sobre3 ?><?php } ?>
+                            </p>
+
+                            
+                            
+
+                               
+                            <a href="sobre.php" class="button_hover theme_btn_two">Ver mais sobre</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                         <?php if($foto_video_sobre == "Vídeo"){ ?>
+               <iframe class="video-mobile" width="100%" height="350" src="<?php echo $video_sobre_index ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="target-video"></iframe>
+                <?php }else{ ?>
+                        <img class="img-fluid" src="sistema/img/<?php echo $foto_sobre_pagina ?>" alt="img">
+                    <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================ About History Area  =================-->
+        
+        <!--================ Testimonial Area  =================-->
+
+        <?php 
+                       $query = $pdo->query("SELECT * from comentarios order by id asc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$linhas = @count($res);
+if($linhas > 0){
+         ?>
+        <section class="testimonial_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Comentários e Avaliações</h2>
+                    <p>Confira alguns comentários e avaliações dos últimos hóspedes</p>
+                </div>
+                <div class="testimonial_slider owl-carousel">
+
+                            <?php 
+             for($i=0; $i<$linhas; $i++){
+  $id = $res[$i]['id'];
+  $nome = $res[$i]['nome'];
+  $foto = $res[$i]['foto'];
+  $texto = $res[$i]['texto'];
+         ?>
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="sistema/painel/images/comentarios/<?php echo $foto ?>" alt="" style="width:80px; height: 80px">
+                        <div class="media-body">
+                            <p><?php echo $texto ?></p>
+                            <a href="#"><h4 class="sec_h4"><?php echo $nome ?></h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                 
+                   <?php } ?>
+                   
+                </div>
+            </div>
+        </section>
+        <!--================ Testimonial Area  =================-->
+
+    <?php } ?>
+        
+
+          <?php 
                $query = $pdo->query("SELECT * from galeria_site order by id desc limit 18");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){
              ?>
-
-      <!-- Portfolio-->
-      <section class="section section-md bg-white text-center text-sm-left">
-        <div class="shell-wide">
-           <div class="range range-10 range-middle">
-            <div class="cell-sm-6">
-              <h3>Galeria de Fotos</h3>
-            </div>
-            
-          </div>
-          <hr>
-          
-          <div class="isotope-wrap">
-            <!-- Isotope Content-->
-            <div class="row isotope" data-isotope-layout="masonry" data-isotope-group="gallery" data-lightgallery="group">
-              <div class="col-xs-6 col-sm-6 col-md-2 grid-sizer"></div>
-
-               <?php 
+        <!--================ Latest Blog Area  =================-->
+        <section class="latest_blog_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Galeria de Fotos do Hotél</h2>
+                   
+                </div>
+                <div class="row mb_30">
+                     <?php 
               for($i=0; $i<$linhas; $i++){
   $id_foto = $res[$i]['id'];
   $foto = $res[$i]['foto'];
   ?>
-              <div class="col-xs-6 col-sm-6 col-md-2 isotope-item wow fadeInUp" data-filter="Category 1" data-wow-delay=".1s"><a class="portfolio-item thumbnail-classic" href="sistema/painel/images/galeria/<?php echo $foto ?>" data-size="1199x800" data-lightgallery="item"><img src="sistema/painel/images/galeria/<?php echo $foto ?>" alt="" style="width:160px; height:130px"/>
-                  <figure></figure>
-                  </a>
-              </div>
-
-<?php } ?>
-             
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-recent-blog-post">
+                            <div class="thumb">
+                                <img class="img-fluid" src="sistema/painel/images/galeria/<?php echo $foto ?>" alt="post">
+                            </div>
+                           
+                        </div>
+                    </div>
+                   <?php } ?>
+                 
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <?php } ?>
-
-
-      
-      
-      <?php require_once("rodape.php") ?>
-
-
-      <script type="text/javascript">
+        </section>
+        <!--================ Recent Area  =================-->
+    <?php } ?>
         
 
-$("#form_reserva").submit(function () {
-
-   event.preventDefault();
-    var formData = new FormData(this);
-
-    $.ajax({
-        url: 'mensagem_reserva.php',
-        type: 'POST',
-        data: formData,
-
-        success: function (mensagem) {          
-            $('#mensagem').text('');
-            $('#mensagem').removeClass()
-            if (mensagem.trim() == "Enviado") {
-              alert('Mensagem Enviada no Whatsapp')
-            } else {
-              window.open(mensagem)
-            }
-
-
-        },
-
-        cache: false,
-        contentType: false,
-        processData: false,
-
-    });
-
-});
-
-
-
-      </script>
+<iframe src="<?php echo $mapa ?>" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+<?php require_once("rodape.php") ?>  
 
 
 
 
-
-
-
-
-
-
-
-
-<style type="text/css">
-    .alerta{
-      background-color: #060d54; color:#FFF; padding:15px; font-family: Arial; text-align:center; position:fixed; bottom:0; width:80%; opacity: 80%; z-index: 200;
-    }
-
-     .alerta.hide{
-       display:none !important;
-    }
-
-    .link-alerta{
-      color:#f2f2f2; 
-    }
-
-    .link-alerta:hover{
-      text-decoration: underline;
-      color:#FFF;
-    }
-
-    .botao-aceitar{
-      background-color: #e3e3e3; padding:7px; margin-left: 15px; border-radius: 5px; border: none; margin-top:3px;
-    }
-
-    .botao-aceitar:hover{
-      background-color: #f7f7f7;
-      text-decoration: none;
-
-    }
-
-  </style>
-
-<div class="alerta hide">
-  A gente guarda estatísticas de visitas para melhorar sua experiência de navegação, saiba mais em nossa  <a class="link-alerta" title="Ver as políticas de privacidade" data-toggle="modal" href="#modalTermosCondicoes" >política de privacidade.</a>
-  <a class="botao-aceitar text-dark" href="#">Aceitar</a>
-</div>
-
-
-<script>
-        if (!localStorage.meuCookie) {
-            document.querySelector(".alerta").classList.remove('hide');
-        }
-
-        const acceptCookies = () => {
-            document.querySelector(".alerta").classList.add('hide');
-            localStorage.setItem("meuCookie", "accept");
-        };
-
-        const btnCookies = document.querySelector(".botao-aceitar");
-
-        btnCookies.addEventListener('click', acceptCookies);
-    </script>
 

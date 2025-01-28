@@ -1,137 +1,168 @@
-<!-- Page Footer-->
-      <footer class="page-footer text-left text-sm-left">
-        <div class="shell-wide">
-         
-          <div class="page-footer-minimal">
-            <div class="shell-wide">
-              <div class="range range-50">
-                <div class="cell-sm-6 cell-md-3 cell-lg-4 wow fadeInUp" data-wow-delay=".1s">
-                  <div class="page-footer-minimal-inner">
-                    <h4>Horário de Atendimento</h4>
-                    <ul class="list-unstyled">
-                      <li>
-                        <div class="group-xs"> 
-                          <div>
-                            <dl class="list-desc">
-                              <dt>Segunda a Sexta: </dt>
-                              <dd class="text-gray-darker"><span>8:00 às 20:00</span></dd>
-                            </dl>
-                          </div>
-                          <div>
-                            <dl class="list-desc">
-                              <dt>Sábados: </dt>
-                              <dd class="text-gray-darker"><span>8:00 às 12:00</span></dd>
-                            </dl>
-                          </div>
+ <!--================ start footer Area  =================-->	
+        <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title">Horário de Atendimento</h6>
+                            <p><b>Segunda a Sexta</b> Das 08:00 as 18:00</p>
+                            <p><b>Sábados</b> Das 08:00 as 12:00</p>
                         </div>
-                      </li>
-                     
-                    </ul>
-                  </div>
+                    </div>
+                  						
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title">Contate-nos</h6>
+                            <p><b>Email </b><?php echo $email_sistema ?></p>	
+                            <p><b>Whatsapp </b><a href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_sistema ?>" target="_blank"><?php echo $telefone_sistema ?></a></p>	
+                           
+                        </div>
+                    </div>
+                   				
                 </div>
-                <div class="cell-sm-6 cell-md-5 cell-lg-4 wow fadeInUp" data-wow-delay=".2s">
-                  <div class="page-footer-minimal-inner">
-                    <h4>Endereço</h4>
-                    <ul class="list-unstyled">
-                      <li>
-                        <dl class="list-desc">
-                          <dt><span class="icon icon-sm mdi mdi-map-marker"></span></dt>
-                          <dd><a class="link link-gray-darker" href="#"><?php echo $endereco_sistema ?></a></dd>
-                        </dl>
-                      </li>
-                      
-                    </ul>
-                  </div>
+                <div class="border_line"></div>
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col-lg-8 col-sm-12 footer-text m-0"><?php echo $endereco_sistema ?></p>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <b>Redes Sociais</b>
+                        <a href="<?php echo $instagram_sistema ?>"><i class="fa fa-instagram" target="_blank" title="Ir para o Instagram"></i></a>
+                        <a href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_sistema ?>" target="_blank" title="Ir para o Whatsapp"><i class="fa fa-whatsapp"></i></a>
+                       
+                    </div>
                 </div>
-                <div class="cell-sm-8 cell-md-4 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="page-footer-minimal-inner-subscribe">
-                    <h4>Contate-nos</h4>
-                    <!-- RD Mailform-->
-                   <ul class="list-unstyled">
-                      
-                      <li>
-                        <dl class="list-desc">
-                          <dt><span class="icon icon-sm mdi mdi-phone"></span></dt>
-                          <dd class="text-gray-darker"> <a class="link link-gray-darker" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_sistema ?>&text=Gostaria de Mais informações sobre as reservas"><?php echo $telefone_sistema ?></a>
-                          </dd>
-                        </dl>
-                      </li>
-
-                      <li>
-                        <dl class="list-desc">
-                          <dt><span class="icon icon-sm mdi mdi-email"></span></dt>
-                          <dd class="text-gray-darker"><a class="link link-gray-darker" href="#"><?php echo $email_sistema ?></a>
-                          </dd>
-                        </dl>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <!-- PANEL-->
-    <!-- END PANEL-->
-    <!-- Global Mailform Output-->
-    <div class="snackbars" id="form-output-global"></div>
-    <!-- PhotoSwipe Gallery-->
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="pswp__bg"></div>
-      <div class="pswp__scroll-wrap">
-        <div class="pswp__container">
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-        </div>
-        <div class="pswp__ui pswp__ui--hidden">
-          <div class="pswp__top-bar">
-            <div class="pswp__counter"></div>
-            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-            <button class="pswp__button pswp__button--share" title="Share"></button>
-            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-            <div class="pswp__preloader">
-              <div class="pswp__preloader__icn">
-                <div class="pswp__preloader__cut">
-                  <div class="pswp__preloader__donut"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-            <div class="pswp__share-tooltip"></div>
-          </div>
-          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-          <div class="pswp__caption">
-            <div class="pswp__caption__cent"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+        </footer>
+		<!--================ End footer Area  =================-->
+        
 
-<a href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_sistema ?>&text=Gostaria de Mais informações sobre as reservas" class="ui-to-top2 mdi mdi-whatsapp"target="_blank"></a>
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="js/stellar.js"></script>
+        <script src="vendors/lightbox/simpleLightbox.min.js"></script>
+        <script src="js/custom.js"></script>
 
-    <!-- Javascript-->
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
-    <!--Coded by Drel-->
-  </body>
-</html>
-
-  <!-- Mascaras JS -->
+          <!-- Mascaras JS -->
 <script type="text/javascript" src="sistema/painel/js/mascaras.js"></script>
 
 <!-- Ajax para funcionar Mascaras JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script> 
 
+    </body>
+</html>
 
 
 
+<div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content ">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="exampleModalLabel"><span id="titulo_quarto"></span></h4>
+
+                <button id="btn-fechar-esp" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+            </div>
+            
+
+            <div class="modal-body">               
+
+             <div id="descricao_quarto"></div>
+
+             <div id="listar_esp" style="margin-top: 10px">                  
+
+                </div>
+
+
+                <div id="listar-fotos" style="margin-top: 10px">                    
+
+                </div>
+
+            </div>
 
 
 
+        </div>
 
+    </div>
+
+</div>     
+
+
+<script type="text/javascript">
+    function detalheQuarto(id, nome, descricao){
+        $('#titulo_quarto').text(nome);
+        $('#descricao_quarto').text(descricao);
+        listarDetalhes(id);
+        carregarFotos(id)        
+        $('#modalDetalhes').modal('show');
+    }
+
+    function listarDetalhes(id){
+        $.ajax({
+
+        url: 'ajax/listar-esp.php',
+
+        method: 'POST',
+
+        data: {id},
+
+        dataType: "html",
+
+
+
+        success:function(result){
+
+            $("#listar_esp").html(result);
+
+            $('#mensagem-esp').text('');
+
+        }
+
+    });
+    }
+
+
+    function carregarFotos(id){
+
+        $.ajax({
+
+       url: 'ajax/listar-fotos.php',
+
+        method: 'POST',
+
+        data: {id},
+
+        dataType: "html",
+
+
+
+        success:function(result){
+
+            $("#listar-fotos").html(result);
+
+            $('#mensagem-excluir-foto').text('');
+
+        }
+
+    });
+
+    }
+
+</script>

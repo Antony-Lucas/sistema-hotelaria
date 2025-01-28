@@ -42,7 +42,7 @@ $query = $pdo->query("SELECT * from config");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas == 0){
-	$pdo->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'logo.png', logo_rel = 'logo.jpg', icone = 'icone.png', api_whatsapp = 'Não', no_show = '50', dias_cancelamento = '30', taxa_cancelamento = '30', marca_dagua = 'Sim', prazo_devolucao = '7'");
+	$pdo->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'logo.png', logo_rel = 'logo.jpg', icone = 'icone.png', api_whatsapp = 'Não', no_show = '50', dias_cancelamento = '30', taxa_cancelamento = '30', marca_dagua = 'Sim', prazo_devolucao = '7', marketing_whats = 'Não', tempo_reserva = '15'");
 }else{
 $nome_sistema = $res[0]['nome'];
 $email_sistema = $res[0]['email'];
@@ -63,7 +63,10 @@ $info_reserva = $res[0]['info_reserva'];
 $info_checkin = $res[0]['info_checkin'];
 $prazo_devolucao = $res[0]['prazo_devolucao'];
 $ativo_sistema = $res[0]['ativo'];
-
+$ocultar_acessos = $res[0]['ocultar_acessos'];
+$marketing_whats = $res[0]['marketing_whats'];
+$tipo_api = $res[0]['tipo_api'];
+$tempo_reserva = $res[0]['tempo_reserva'];
 $whatsapp_sistema = '55'.preg_replace('/[ ()-]+/' , '' , $telefone_sistema);
 }	
 

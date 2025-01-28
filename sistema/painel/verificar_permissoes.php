@@ -16,6 +16,8 @@ $hospedes = 'ocultar';
 $fornecedores = 'ocultar';
 
 
+
+
 //grupo cadastros
 $categorias_quartos = 'ocultar';
 $quartos = 'ocultar';
@@ -28,6 +30,13 @@ $grupos = 'ocultar';
 $reservas = 'ocultar';
 $filtrar_reservas = 'ocultar';
 $rel_quartos = 'ocultar';
+$quadro_reservas = 'ocultar';
+
+
+
+//grupo pessoas
+$caixas = 'ocultar';
+$rel_caixas = 'ocultar';
 
 
 //grupo financeiro
@@ -62,6 +71,7 @@ $dados_site = 'ocultar';
 $banners_site = 'ocultar';
 $especificacoes = 'ocultar';
 $galeria_site = 'ocultar';
+$comentarios = 'ocultar';
 
 $query = $pdo->query("SELECT * FROM usuarios_permissoes where usuario = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -90,8 +100,8 @@ if($total_reg > 0){
 			$marketing = '';
 		}
 
-		if($chave == 'calendario'){
-			$calendario = '';
+		if($chave == 'quadro_reservas'){
+			$quadro_reservas = '';
 		}
 
 
@@ -158,7 +168,20 @@ if($total_reg > 0){
 			$rel_quartos = '';
 		}
 
+			if($chave == 'calendario'){
+			$calendario = '';
+		}
 
+
+
+
+		if($chave == 'caixas'){
+			$caixas = '';
+		}
+
+		if($chave == 'rel_caixas'){
+			$rel_caixas = '';
+		}
 
 
 
@@ -259,6 +282,12 @@ if($total_reg > 0){
 				}
 
 
+		if($chave == 'comentarios'){
+					$comentarios = '';
+				}
+
+
+
 		
 	}
 
@@ -301,13 +330,20 @@ if($categorias_quartos == 'ocultar' and $cargos == 'ocultar' and $quartos == 'oc
 }
 
 
-if($reservas == 'ocultar' and $filtrar_reservas == 'ocultar' and $rel_quartos == 'ocultar'){
+if($reservas == 'ocultar' and $filtrar_reservas == 'ocultar' and $rel_quartos == 'ocultar' and $quadro_reservas == 'ocultar'){
 	$menu_reservas = 'ocultar';
 }else{
 	$menu_reservas = '';
 }
 
 
+
+
+if($caixas == 'ocultar' and $rel_caixas == 'ocultar'){
+	$menu_caixa = 'ocultar';
+}else{
+	$menu_caixa = '';
+}
 
 
 if($compras == 'ocultar' and $rel_financeiro == 'ocultar' and $pagar == 'ocultar' and $receber == 'ocultar' and $rel_lucro == 'ocultar'){
@@ -343,7 +379,7 @@ if($vendas_servicos == 'ocultar' and $vendas_produtos == 'ocultar' and $lista_ve
 
 
 
-if($dados_site == 'ocultar' and $banners_site == 'ocultar' and $galeria_site == 'ocultar' and $especificacoes == 'ocultar'){
+if($dados_site == 'ocultar' and $banners_site == 'ocultar' and $galeria_site == 'ocultar' and $especificacoes == 'ocultar' and $comentarios == 'ocultar'){
 	$menu_site = 'ocultar';
 }else{
 	$menu_site = '';

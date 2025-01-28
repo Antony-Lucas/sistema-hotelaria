@@ -43,3 +43,8 @@ RewriteRule ^especificacoes(.*)$ index.php?pagina=especificacoes [L]
 
 RewriteRule ^marketing(.*)$ index.php?pagina=marketing [L]
 RewriteRule ^calendario(.*)$ index.php?pagina=calendario [L]
+RewriteRule ^quadro_reservas(.*)$ index.php?pagina=quadro_reservas [L]
+
+
+RewriteRule ^caixas(.*)$ index.php?pagina=caixas [L]
+RewriteRule ^comentarios(.*)$ index.php?pagina=comentarios [L]

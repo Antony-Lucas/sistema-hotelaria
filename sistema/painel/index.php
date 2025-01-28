@@ -47,6 +47,8 @@ if($linhas > 0){
 	<!-- Custom CSS -->
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 
+	 <link rel="stylesheet" href="../../vendors/linericon/style.css">
+
 	<!-- font-awesome icons CSS -->
 	<link href="css/font-awesome.css" rel="stylesheet"> 
 	<!-- //font-awesome icons CSS-->
@@ -56,6 +58,9 @@ if($linhas > 0){
 	<!-- //side nav css file -->
 
 	<link rel="stylesheet" href="css/monthly.css">
+
+	<link rel="stylesheet" href="css/style-calendario.css">
+	
 
 	<!-- js-->
 	<script src="js/jquery-1.11.1.min.js"></script>
@@ -164,7 +169,7 @@ if($linhas > 0){
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
-							<li class="header">MENU NAVEGAÇÃO</li>
+							<li class="header">MENU</li>
 							<li class="treeview <?php echo $home ?>">
 								<a href="index.php">
 									<i class="fa fa-dashboard"></i> <span>Home</span>
@@ -203,9 +208,11 @@ if($linhas > 0){
 
 									<li class="<?php echo $formas_pgto ?>"><a href="formas_pgto"><i class="fa fa-angle-right"></i> Formas Pgto</a></li>
 
+									<?php if($ocultar_acessos != 'Não'){ ?>
 									<li class="<?php echo $grupos ?>"><a href="grupos"><i class="fa fa-angle-right"></i> Grupos de Acesso</a></li>
 
 									<li class="<?php echo $acessos ?>"><a href="acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
+								<?php } ?>
 									
 								</ul>
 							</li>
@@ -223,6 +230,26 @@ if($linhas > 0){
 									<li class="<?php echo $filtrar_reservas ?>"><a href="filtrar_reservas"><i class="fa fa-angle-right"></i> Filtrar Reservas</a></li>
 
 									<li class="<?php echo $rel_quartos ?>"><a href="" data-toggle="modal" data-target="#modalRelQuartos"><i class="fa fa-angle-right"></i> Quartos Disponíveis</a></li>
+
+									<li class="<?php echo $quadro_reservas ?>"><a href="quadro_reservas"><i class="fa fa-angle-right"></i> Quadro Reservas</a></li>
+									
+									
+								</ul>
+							</li>
+
+
+							<li class="treeview <?php echo $menu_caixa ?>">
+								<a href="#">
+									<i class="fa fa-briefcase"></i>
+									<span>Caixas</span>
+									<i class="fa fa-angle-left pull-right"></i>
+								</a>
+								<ul class="treeview-menu">
+								
+								<li class="<?php echo $caixas ?>"><a href="caixas"><i class="fa fa-angle-right"></i>Caixas</a></li>
+							
+
+								<li class="<?php echo $rel_caixas ?>"><a href="" data-toggle="modal" data-target="#modalRelCaixa"><i class="fa fa-angle-right"></i>Relatório de Caixas</a></li>							
 									
 									
 								</ul>
@@ -319,12 +346,13 @@ if($linhas > 0){
 							</li>
 
 
-
+							<?php if($marketing_whats == 'Não'){ ?>
 							<li class="treeview <?php echo $marketing ?>">
 								<a href="marketing">
 									<i class="fa fa-whatsapp"></i> <span>Marketing</span>
 								</a>
 							</li>
+						<?php } ?>
 
 
 
@@ -342,8 +370,15 @@ if($linhas > 0){
 								<li class="<?php echo @$especificacoes ?>"><a href="especificacoes"><i class="fa fa-angle-right"></i>Área de Lazer</a></li>
 
 								<li class="<?php echo $galeria_site ?>"><a href="" data-toggle="modal" data-target="#modalGaleria"><i class="fa fa-angle-right"></i>Galeria Site</a></li>
+
+								<li class="<?php echo $comentarios ?>"><a href="comentarios"><i class="fa fa-angle-right"></i>Comentários</a></li>
 								
-									
+								<li class="<?php echo $webhooks ?>">
+									<a href="index.php?pagina=webhooks">
+										<i class="fa fa-angle-right"></i>Webhooks
+									</a>
+								</li>
+
 									
 								</ul>
 							</li>
@@ -777,23 +812,62 @@ if($linhas > 0){
 						</div>
 
 						<div class="col-md-3">							
-								<label>Token Api Whatsapp</label>
+								<label>Menuia</label>
+								<select name="tipo_api" class="form-control">
+									<option value="menuia" <?php if($tipo_api == 'menuia'){ ?> selected <?php } ?>>Menuia</option>
+									<option value="word_mensagens" <?php if($tipo_api == 'word_mensagens'){ ?> selected <?php } ?>>Word Mensagens</option>
+								</select>						
+						</div>
+
+						<div class="col-md-3">							
+								<label>Token Whatsapp (appkey)</label>
 								<input type="text" class="form-control"  name="token" value="<?php echo @$token ?>" >							
 						</div>
 
 						<div class="col-md-3">							
-								<label>Instância Api Whatsapp</label>
+								<label>Instância (Authkey)</label>
 								<input type="text" class="form-control"  name="instancia"  value="<?php echo @$instancia ?>">							
 						</div>
 
-						<div class="col-md-3">							
+						
+					</div>
+
+
+
+						<div class="row">
+
+							<div class="col-md-3">							
 								<label>Marca D'agua</label>
 								<select name="marca_dagua" class="form-control">
 									<option value="Sim" <?php if($marca_dagua == 'Sim'){ ?> selected <?php } ?>>Sim</option>
 									<option value="Não" <?php if($marca_dagua == 'Não'){ ?> selected <?php } ?>>Não</option>
 								</select>						
 						</div>
+
+						<div class="col-md-3">		
+							<label>Ocultar Acessos</label>
+								<select name="ocultar_acessos" class="form-control">
+									<option value="Sim" <?php if($ocultar_acessos == 'Sim'){ ?> selected <?php } ?>>Sim</option>
+									<option value="Não" <?php if($ocultar_acessos == 'Não'){ ?> selected <?php } ?>>Não</option>
+								</select>	
+						</div>
+
+						<div class="col-md-3">		
+							<label>Ocultar Marketing</label>
+								<select name="marketing_whats" class="form-control">
+									<option value="Sim" <?php if($marketing_whats == 'Sim'){ ?> selected <?php } ?>>Sim</option>
+									<option value="Não" <?php if($marketing_whats == 'Não'){ ?> selected <?php } ?>>Não</option>
+								</select>	
+						</div>
+
+						<div class="col-md-3">							
+								<label>Tempo Reserva</label>
+								<input type="text" class="form-control"  name="tempo_reserva"  value="<?php echo @$tempo_reserva ?>" placeholder="Excluir pré-reserva minutos">							
+						</div>
 					</div>
+
+
+
 
 					<div class="row">						
 						<div class="col-md-12">	
@@ -809,6 +883,9 @@ if($linhas > 0){
 						</div>
 					</div>
 
+
+
+				
 					
 
 					<div class="row">
@@ -1049,6 +1126,75 @@ if($linhas > 0){
 
 
 
+
+
+<!-- Modal Rel Financeiro -->
+<div class="modal fade" id="modalRelCaixa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Relatório Caixas</h4>
+				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="POST" action="rel/caixas_class.php" target="_blank">
+			<div class="modal-body">	
+			<div class="row">
+				<div class="col-md-4">
+					<label>Data Inicial</label>
+					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				<div class="col-md-4">
+					<label>Data Final</label>
+					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				<div class="col-md-4">
+					<label>Operador</label>
+					<select class="form-control sel350" aria-label="Default select example" name="operador" id="operador" style="width:100%" >
+				<option value="">Selecionar Operador</option>
+				<?php 
+
+				$query = $pdo->query("SELECT * FROM usuarios order by nome asc");
+
+				$res = $query->fetchAll(PDO::FETCH_ASSOC);
+				for($i=0; $i < @count($res); $i++){
+
+					foreach ($res[$i] as $key => $value){}
+
+						?>	
+
+					<option value="<?php echo $res[$i]['id'] ?>"><?php echo $res[$i]['nome'] ?> </option>
+
+
+
+				<?php } ?>			
+
+				
+
+			</select>
+				</div>
+			</div>		
+
+
+
+			</div>
+			<div class="modal-footer">       
+				<button type="submit" class="btn btn-primary">Gerar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
 <!-- Modal Galeria -->
 <div class="modal fade" id="modalGaleria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -1089,7 +1235,19 @@ if($linhas > 0){
 </div>
 
 
+<script type="text/javascript">
 
+	$(document).ready(function() {
+
+		$('.sel350').select2({
+
+					dropdownParent: $('#modalRelCaixa')
+
+				});
+
+	});
+
+</script>
 
 <script type="text/javascript">
 	function carregarImgPerfil() {
