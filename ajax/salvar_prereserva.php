@@ -13,12 +13,16 @@ $hospedes = $_POST['hospedes'];
 $check_in = $_POST['checkin'];
 $check_out = $_POST['checkout'];
 
+$tempo_reserva = 20; // Definição do tempo de reserva em minutos
+
 $hora_atual = date('H:i:s');
 
-// Somo 5 minutos (resultado em int)
-$horaNova = strtotime("$hora_atual + $tempo_reserva minutes");
-// Formato o resultado
-$hora_excluir = date("H:i:s",$horaNova);
+// Somar 20 minutos à hora atual
+$horaNova = strtotime("+$tempo_reserva minutes", strtotime($hora_atual));
+$hora_excluir = date("H:i:s", $horaNova);
+
+$id_hospede = "";
+
 
 
 $id_hospede = "";
