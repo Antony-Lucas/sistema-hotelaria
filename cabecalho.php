@@ -63,26 +63,24 @@ if($_SESSION['pagina'] == 'contatos'){
     </head>
     <body>
         <!--================Header Area =================-->
-        <header class="header_area">
-            <div class="container">
+        <header class="header_area" >
+            <div class="container" style="width: 100%; max-width: 100%; padding: 0" >
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.php"><img class="logo_mobile" src="sistema/img/<?php echo $logo_site ?>" alt="" ></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand logo_h" href="index.php"><img class="logo_mobile" src="sistema/img/logo_site.png" alt="" ></a>
+                    <button style="padding-left: 15px" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent" >
                         <ul class="nav navbar-nav menu_nav ml-auto" style="padding-left: 15px">
                             <li class="nav-item <?php echo $ativa_home ?>"><a class="nav-link" href="index.php">Home</a></li> 
                             <li class="nav-item <?php echo $ativa_sobre ?>"><a class="nav-link" href="sobre.php">Sobre</a></li>
                             <li class="nav-item <?php echo $ativa_quartos ?>"><a class="nav-link" href="quartos.php">Quartos</a></li>
                             
                             <li class="nav-item <?php echo $ativa_contatos ?>"><a class="nav-link" href="contatos.php">Contatos</a></li>
-
-                             <li class="nav-item <?php echo $ativa_sistema ?>"><a class="nav-link" href="sistema">Sistema</a></li>
                         </ul>
                     </div> 
                 </nav>
