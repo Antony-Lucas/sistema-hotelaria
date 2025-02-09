@@ -32,6 +32,16 @@
                 </div>
             </div>
         </footer>
+        <div class="d-flex justify-content-between align-items-center" style="background-color:#262626; padding: 20px 65px;">
+        &copy todos o direitos reservados | 2025
+            <div class="row d-flex justify-content-between align-items-center">
+                Desenvolvido por: 
+                <div class="column d-flex justify-content-between align-items-center" style="margin-left: 15px">
+                    <span style="font-weight: 500">UP Marketing Digital Ltda</span>
+                    <a href="https://upmarketingassessoria.com/" target="_blank" ><img style="width: 50px; margin-left: 15px" src="image/logo_up.webp" alt="" ></a>
+                </div>
+            </div>
+        </div>
 		<!--================ End footer Area  =================-->
         
 
